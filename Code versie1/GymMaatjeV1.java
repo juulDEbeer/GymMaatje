@@ -2,6 +2,7 @@
 // Versie 1: ruwe schets
 // Doel: Doe berekeningen met het aantal gewicht wat de gebruiker kan tillen en geef hierover resultaat
 // Side note: dit programma is in heel basis java geschreven, niet eens naar conventie van Object Oriented programming. Dit volgt later.
+
 import java.util.Scanner;
 
 public class GymMaatjeV1 {
@@ -48,7 +49,9 @@ public class GymMaatjeV1 {
         System.out.println("Er volgt nu een overzicht van de gegevens van de oefeningen die je hebt ingevoerd.");
         System.out.println("Let op, het uitgerekende gewicht voor 1 herhaling is gebaseerd op percentages.");
         // print gegevens oefeningen dmv methodes
-
+        for (int i = 0; i < oefening.length; i++) {
+            printBerekeningen(oefening[i] , berekenMaximaalGewicht(gewichtOefening[i], herhalingenOefening[i]));
+        }
 
 
 
@@ -98,7 +101,15 @@ public class GymMaatjeV1 {
         return maximaalGewicht;
     }
 
-    public static void printBerekeningen(double berekenMaximaalGewicht) {
-        //
+    public static void printBerekeningen(String oefening, double maximaalGewicht) {
+        System.out.printf("%n%s%n", oefening);
+        System.out.printf("Jouw geschatte 1 rep max: %.1f kg%n", maximaalGewicht);
+
+        // print bovenste regel
+        System.out.printf("%n%-19s |", "Percentage van 1 rm");
+        System.out.printf("%14s |", "Gewicht in kg");
+        System.out.printf("%19s ", "Aantal herhalingen");
+
     }
 }
+
