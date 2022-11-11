@@ -1,7 +1,7 @@
 // @author: Julian Weijers
 // Versie 1: ruwe schets
 // Doel: Doe berekeningen met het aantal gewicht wat de gebruiker kan tillen en geef hierover resultaat
-
+// Side note: dit programma is in heel basis java geschreven, niet eens naar conventie van Object Oriented programming. Dit volgt later.
 import java.util.Scanner;
 
 public class GymMaatjeV1 {
@@ -10,20 +10,47 @@ public class GymMaatjeV1 {
         Scanner input = new Scanner(System.in);
 
         // Variabelen en constanten
+        double[] gewichtOefening = new double[3];
+        int[] herhalingenOefening = new int[3];
 
         // Introductie met vragen gebruiker
-        System.out.println("Welkom bij GymMaatje! Jouw persoonlijke maatje voor in de gym!");
+        System.out.println("Welkom bij GymMaatje! Jouw persoonlijke maatje voor in de gym!\n");
         System.out.print("Allereerst, wat is je naam? ");
         String naamGebruiker = input.nextLine(); // slaat gebruikers naam op
 
-        System.out.print("Wat is je lengte in centimeter? ");
+        System.out.print("Wat is je lengte in centimeters? ");
         int lengteGebruiker = input.nextInt(); // slaat gebruikers lengte op
 
         System.out.print("Hoeveel weeg je in kilogram (1 decimaal)? ");
-        double gewichtGebruiker = input.nextDouble();
+        double gewichtGebruiker = input.nextDouble(); // slaat gebruikers gewicht op
 
-        System.out.print("Wil je de berekeningen in kilogram (toets 1) of in ponden (toets 2) doen? ");
-        int eenheidKeuze = input.nextInt(); // Keuze voor gebruiker om te rekenen met ponden
+        System.out.print("Wil je de berekeningen in kilogram of in pond? ");
+        input.nextLine(); // clear buffer
+        String eenheidKeuze = input.nextLine(); // Keuze voor gebruiker om te rekenen met andere eenheid
+
+        // Vraag gegevens over oefening
+        System.out.println("\nMet welke oefeningen wil je berekeningen doen?");
+        System.out.println("Je kan kiezen uit bankdrukken, squat of deadlift.");
+        System.out.print("Voer de oefeningen in die je wil berekenen (met spaties daartussen): ");
+        String keuzeOefening = input.nextLine();
+        String[] oefening = keuzeOefening.split(" "); // split de spring in losse delen
+
+        for (int i = 0; i < oefening.length; i++) {
+            System.out.printf("%nHoeveel gewicht kan je voor %s? ", oefening[i]);
+            gewichtOefening[i] = input.nextDouble();
+
+            System.out.printf("Voor hoeveel herhalingen kan je dit gewicht? ");
+            herhalingenOefening[i] = input.nextInt();
+        }
+
+        // Print resultaten
+        System.out.printf("%nBeste %s,%n", naamGebruiker);
+        System.out.println("Er volgt nu een overzicht van de gegevens van de oefeningen die je hebt ingevoerd.");
+        System.out.println("Let op, het uitgerekende gewicht voor 1 herhaling is gebaseerd op percentages.");
+        // print gegevens oefeningen dmv methodes
+
+
+
 
 
 
@@ -63,5 +90,15 @@ public class GymMaatjeV1 {
         } */
 
 
+    }
+
+    public static double berekenMaximaalGewicht(double gewichtOefening, int herhalingenOefening) {
+        // 1 rep calculated based on Brzycki formula
+        double maximaalGewicht = gewichtOefening / (1.0278 - 0.0278 * herhalingenOefening);
+        return maximaalGewicht;
+    }
+
+    public static void printBerekeningen(double berekenMaximaalGewicht) {
+        //
     }
 }
