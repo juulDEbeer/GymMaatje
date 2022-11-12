@@ -31,7 +31,7 @@ public class GymMaatjeV1 {
 
         // Vraag gegevens over oefening
         System.out.println("\nMet welke oefeningen wil je berekeningen doen?");
-        System.out.println("Je kan kiezen uit bankdrukken, squat of deadlift.");
+       // System.out.println("Je kan kiezen uit bankdrukken, squat of deadlift.");
         System.out.print("Voer de oefeningen in die je wil berekenen (met spaties daartussen): ");
         String keuzeOefening = input.nextLine();
         String[] oefening = keuzeOefening.split(" "); // split de spring in losse delen
@@ -50,7 +50,7 @@ public class GymMaatjeV1 {
         System.out.println("Let op, het uitgerekende gewicht voor 1 herhaling is gebaseerd op percentages.");
         // print gegevens oefeningen dmv methodes
         for (int i = 0; i < oefening.length; i++) {
-            printBerekeningen(oefening[i] , berekenMaximaalGewicht(gewichtOefening[i], herhalingenOefening[i]));
+            printBerekeningen(oefening[i] , berekenMaximaalGewicht(gewichtOefening[i], herhalingenOefening[i]), gewichtGebruiker);
         }
 
 
@@ -101,15 +101,25 @@ public class GymMaatjeV1 {
         return maximaalGewicht;
     }
 
-    public static void printBerekeningen(String oefening, double maximaalGewicht) {
+    public static void printBerekeningen(String oefening, double maximaalGewicht, double gewichtGebruiker) {
         System.out.printf("%n%s%n", oefening);
-        System.out.printf("Jouw geschatte 1 rep max: %.1f kg%n", maximaalGewicht);
+        System.out.printf("Je geschatte 1 rep max: %.1f kg%n", maximaalGewicht);
+        System.out.printf("Dit is %.1f keer je eigen lichaamsgewicht!%n", (maximaalGewicht / gewichtGebruiker));
 
         // print bovenste regel
         System.out.printf("%n%-19s |", "Percentage van 1 rm");
         System.out.printf("%14s |", "Gewicht in kg");
         System.out.printf("%19s ", "Aantal herhalingen");
 
+        // Print body
+        for (int i = 0; i < 7; i++) {
+            int percentage = 100 - (i * 5);
+            double gewicht = (percentage / 100.0) * maximaalGewicht;
+            int[] aantalHerhalingen = {1, 2, 4, 6, 8, 10, 12};
+            System.out.printf("%n%-19d |", percentage);
+            System.out.printf("%11.1f kg |", gewicht);
+            System.out.printf("%19d %n", aantalHerhalingen[i]);
+        }
     }
 }
 
